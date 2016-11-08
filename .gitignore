@@ -20,9 +20,9 @@ PaenkoDB_Client/[Rr]elease/
 PaenkoDB_Client/[Rr]eleases/
 PaenkoDB_Client/x64/
 PaenkoDB_Client/x86/
+PaenkoDB_Client/obj/
+PaenkoDB_Client/bin/
 PaenkoDB_Client/bld/
-PaenkoDB_Client/[Bb]in/
-PaenkoDB_Client/[Oo]bj/
 PaenkoDB_Client/[Ll]og/
 
 # Visual Studio 2015 cache/options directory

@@ -1,0 +1,18 @@
+﻿<Window x:Class="PaenkoDB_Client.Editor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PaenkoDB_Client"
+        mc:Ignorable="d"
+        Title="Editor" Height="140" Width="417" ResizeMode="NoResize">
+    <Grid>
+        <Label x:Name="LabelID" Content="Peer ID: " Margin="10" Height="25" VerticalAlignment="Top"/>
+        <Label x:Name="LabelDescription" Content="Description: " Margin="10,40,0,0" Height="35" VerticalAlignment="Top"/>
+        <Label x:Name="LabelLocation" Content="Location: " Margin="10,70,0,0" Height="35" VerticalAlignment="Top"/>
+        <TextBox x:Name="TextboxInputLoc" Height="20" Width="233" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="80,72,0,0"/>
+        <TextBox x:Name="TextboxInputId" Height="20" Width="320" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="80,12.5,0,0"/>
+        <TextBox x:Name="TextboxInputDes" Height="20" Width="320" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="80,42.5,0,0"/>
+        <Button x:Name="ButtonConfirm" Content="Confirm" Height="20" Width="80" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,72.5,10,0"/>
+    </Grid>
+</Window>
