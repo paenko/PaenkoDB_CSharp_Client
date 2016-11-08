@@ -39,13 +39,14 @@ namespace PaenkoDB_Client
             RTBContent.Click += (o, e) => TabContent();
             RTBDocument.Click += (o, e) => TabDocument();
             LocationList.SelectionChanged += (o, e) => SelectLocation(o, e);
-            ButtonPost.Click += (o, e) => PostContent();
+            ButtonPost.Click += (o, e) => PostPutContent(PaenkoDB.PaenkoDB.Method.Post);
             ButtonGet.Click += (o, e) => GetContent();
             ButtonRefresh.Click += (o, e) => Refresh();
             ButtonOpen.Click += (o, e) => OpenFile();
             ButtonPostFile.Click += (o, e) => PostPutFile(PaenkoDB.PaenkoDB.Method.Post);
             ButtonDelete.Click += (o, e) => DeleteDocument();
-            ButtonPut.Click += (o, e) => PostPutFile(PaenkoDB.PaenkoDB.Method.Put);
+            ButtonPutFile.Click += (o, e) => PostPutFile(PaenkoDB.PaenkoDB.Method.Put);
+            ButtonPut.Click += (o, e) => PostPutContent(PaenkoDB.PaenkoDB.Method.Put);
         }
 
         void TabContent()
@@ -105,10 +106,12 @@ namespace PaenkoDB_Client
                 writeStream.Write(buffer);
             }
         }
-
-        void PostContent()
+        
+        void PostPutContent(PaenkoDB.PaenkoDB.Method m)
         {
-            Database.PostDocument(NodeBySelection(), PaenkoDocument.FromContent(MainContent.Text, Init.User, Init.Password), PaenkoDB.PaenkoDB.Method.Post);
+            var doc = PaenkoDocument.FromContent(MainContent.Text, Init.User, Init.Password);
+            if (m == PaenkoDB.PaenkoDB.Method.Put) doc.id = KeyBySelection();
+            Database.PostDocument(NodeBySelection(), doc, m);
         }
 
         void SelectLocation(object o, EventArgs e)
@@ -122,7 +125,7 @@ namespace PaenkoDB_Client
             LocationList.Items.Clear();
             foreach (PaenkoNode pn in Init.Peers)
             {
-                LocationList.Items.Add(pn.Location);
+                LocationList.Items.Add(new ListItem(pn.Location));
                 Database.AddNode(pn);
             }
         }
@@ -133,17 +136,25 @@ namespace PaenkoDB_Client
             List<string> keys = Database.GetKeys(NodeBySelection());
             foreach (string s in keys)
             {
-                KeyList.Items.Add(s);
+                KeyList.Items.Add(new ListItem(s));
             }
         }
 
         PaenkoNode NodeBySelection()
         {
-            return Init.Peers.Find(pn => pn.Location == (string)LocationList.SelectedItem);
+            return Init.Peers.Find(pn => pn.Location == (string)((ListItem)LocationList.SelectedItem).Content);
         }
         string KeyBySelection()
         {
-            return (string)KeyList.SelectedItem;
+            return (string)((ListItem)KeyList.SelectedItem).Content;
+        }
+    }
+    class ListItem:ListBoxItem
+    {
+        public ListItem(string content):base()
+        {
+            Content = content;
+            FontSize = 14;
         }
     }
 }

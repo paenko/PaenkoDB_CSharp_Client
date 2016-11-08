@@ -56,7 +56,7 @@ namespace PaenkoDB_Client
             PeerOutput.Items.Clear();
             foreach (PaenkoNode pn in Peers)
             {
-                PeerOutput.Items.Add(pn.Location);
+                PeerOutput.Items.Add(new ListItem(pn.Location));
             }
         }
 
