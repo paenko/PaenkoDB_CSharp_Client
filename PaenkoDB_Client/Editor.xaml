@@ -5,14 +5,37 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PaenkoDB_Client"
         mc:Ignorable="d"
-        Title="Editor" Height="140" Width="417" ResizeMode="NoResize">
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="15"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+        Title="Editor" Height="140" Width="417" ResizeMode="NoResize" Background="#FFECEFF1">
+    <Window.Resources>
+        <Style TargetType="Button" x:Key="FlatButtonStyle">
+            <Setter Property="Background" Value="DarkCyan"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Width" Value="75"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border BorderThickness="0"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="0">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Label x:Name="LabelID" Content="Peer ID: " Margin="10" Height="25" VerticalAlignment="Top"/>
         <Label x:Name="LabelDescription" Content="Description: " Margin="10,40,0,0" Height="35" VerticalAlignment="Top"/>
         <Label x:Name="LabelLocation" Content="Location: " Margin="10,70,0,0" Height="35" VerticalAlignment="Top"/>
-        <TextBox x:Name="TextboxInputLoc" Height="20" Width="233" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="80,72,0,0"/>
-        <TextBox x:Name="TextboxInputId" Height="20" Width="320" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="80,12.5,0,0"/>
-        <TextBox x:Name="TextboxInputDes" Height="20" Width="320" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="80,42.5,0,0"/>
-        <Button x:Name="ButtonConfirm" Content="Confirm" Height="20" Width="80" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,72.5,10,0"/>
+        <TextBox x:Name="TextboxInputLoc" Height="30" Width="210" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,62.5,0,0"/>
+        <TextBox x:Name="TextboxInputId" Height="30" Width="300" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,2.5,0,0"/>
+        <TextBox x:Name="TextboxInputDes" Height="30" Width="300" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,32.5,0,0"/>
+        <Button Style="{StaticResource FlatButtonStyle}" FontSize="12" x:Name="ButtonConfirm" Content="Confirm" Height="20" Width="80" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,72.5,10,0"/>
     </Grid>
 </Window>

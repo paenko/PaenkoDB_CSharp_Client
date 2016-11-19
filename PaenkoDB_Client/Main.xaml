@@ -6,11 +6,29 @@
         xmlns:local="clr-namespace:PaenkoDB_Client"
         mc:Ignorable="d"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontWeight="Medium"
-        TextElement.FontSize="14"
+        TextElement.FontSize="15"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
-        Title="PaenkoDB" Height="427.974" Width="796.336">
+        Title="PaenkoDB" Height="427.974" Width="607.536" Background="#FFECEFF1">
+    <Window.Resources>
+        <Style TargetType="Button" x:Key="FlatButtonStyle">
+            <Setter Property="Background" Value="DarkCyan"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Width" Value="75"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border BorderThickness="0"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="0">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -32,18 +50,18 @@
             </StackPanel>
         </Grid>
         <Grid Grid.Column="2">
-            <RichTextBox x:Name="TextContent" Margin="10,30,10,70"/>
-            <RichTextBox x:Name="TextContentSecondary" Margin="10,30,10,70"/>
-            <Button Style="{DynamicResource MaterialDesignRaisedAccentButton}" x:Name="RTBContent" Content="Content" HorizontalAlignment="Right" Height="20" VerticalAlignment="Top" Width="60" Margin="10,10,10,10"/>
-            <Button Style="{DynamicResource MaterialDesignRaisedAccentButton}" x:Name="RTBDocument" Content="Document" HorizontalAlignment="Right" Height="20" VerticalAlignment="Top" Width="60" Margin="10,10,70,10"/>
-            <Button Style="{DynamicResource MaterialDesignRaisedDarkButton}" x:Name="ButtonPost" Content="Post" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="80" Height="20" Margin="10,0,0,40"/>
-            <Button Style="{DynamicResource MaterialDesignRaisedDarkButton}" x:Name="ButtonGet" Content="Get document" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="80" Height="20" Margin="120,0,0,40"/>
-            <Button Style="{DynamicResource MaterialDesignRaisedDarkButton}" x:Name="ButtonPostFile" Content="..." HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="20" Height="20" Margin="90,0,0,40"/>
-            <Button Style="{DynamicResource MaterialDesignRaisedDarkButton}" x:Name="ButtonRefresh" Content="Force Update" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="80" Height="20" Margin="210,0,0,40"/>
-            <Button Style="{DynamicResource MaterialDesignRaisedDarkButton}" x:Name="ButtonOpen" Content="Open File" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="80" Height="20" Margin="120,0,0,10"/>
-            <Button Style="{DynamicResource MaterialDesignRaisedDarkButton}" x:Name="ButtonDelete" Content="Delete" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="80" Height="20" Margin="210,0,0,10"/>
-            <Button Style="{DynamicResource MaterialDesignRaisedDarkButton}" x:Name="ButtonPut" Content="Put" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="80" Height="20" Margin="10,0,0,10"/>
-            <Button Style="{DynamicResource MaterialDesignRaisedDarkButton}" x:Name="ButtonPutFile" Content="..." HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="20" Height="20" Margin="90,0,0,10"/>
+            <RichTextBox x:Name="TextContent" Margin="10,30,10,70" Block.LineHeight="6" Background="#FFECEFF1" SelectionBrush="#FF667D77" BorderBrush="#FF363C38"/>
+            <RichTextBox x:Name="TextContentSecondary" Margin="10,30,10,70" Block.LineHeight="6" Background="#FFECEFF1" SelectionBrush="#FF667D77" BorderBrush="#FF363C38"/>
+            <Button FontSize="10" Style="{StaticResource FlatButtonStyle}" x:Name="RTBContent" Content="Content" HorizontalAlignment="Right" Height="20" VerticalAlignment="Top" Width="60" Margin="10,10,10,10"/>
+            <Button FontSize="10" Style="{DynamicResource FlatButtonStyle}" x:Name="RTBDocument" Content="Document" HorizontalAlignment="Right" Height="20" VerticalAlignment="Top" Width="60" Margin="10,10,70,10"/>
+            <Button FontSize="12" Style="{DynamicResource FlatButtonStyle}" x:Name="ButtonPost" Content="Post" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="80" Height="20" Margin="10,0,0,40"/>
+            <Button FontSize="12" Style="{DynamicResource FlatButtonStyle}" x:Name="ButtonGet" Content="Get" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="80" Height="20" Margin="120,0,0,40"/>
+            <Button FontSize="12" Style="{DynamicResource FlatButtonStyle}" x:Name="ButtonPostFile" Content="..." HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="20" Height="20" Margin="90,0,0,40"/>
+            <Button FontSize="12" Style="{DynamicResource FlatButtonStyle}" x:Name="ButtonRefresh" Content="Update" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="80" Height="20" Margin="210,0,0,40"/>
+            <Button FontSize="12" Style="{DynamicResource FlatButtonStyle}" x:Name="ButtonOpen" Content="Open" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="80" Height="20" Margin="120,0,0,10"/>
+            <Button FontSize="12" Style="{DynamicResource FlatButtonStyle}" x:Name="ButtonDelete" Content="Delete" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="80" Height="20" Margin="210,0,0,10"/>
+            <Button FontSize="12" Style="{DynamicResource FlatButtonStyle}" x:Name="ButtonPut" Content="Put" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="80" Height="20" Margin="10,0,0,10"/>
+            <Button FontSize="12" Style="{DynamicResource FlatButtonStyle}" x:Name="ButtonPutFile" Content="..." HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="20" Height="20" Margin="90,0,0,10"/>
         </Grid>
     </Grid>
 </Window>

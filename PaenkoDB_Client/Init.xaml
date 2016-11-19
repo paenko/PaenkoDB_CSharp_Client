@@ -5,19 +5,42 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PaenkoDB_Client"
         mc:Ignorable="d"
-        Title="Peer Configuration" Height="300" Width="310">
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="13"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+        Title="Peer Configuration" Height="300" Width="310" Background="#FFECEFF1">
+    <Window.Resources>
+        <Style TargetType="Button" x:Key="FlatButtonStyle">
+            <Setter Property="Background" Value="DarkCyan"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Width" Value="75"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border BorderThickness="0"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="0">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid x:Name="GridPeerlist" Margin="0,25,120,0">
             <ListBox x:Name="DataPeerlist"/>
         </Grid>
         <Label x:Name="LabelDescription" Content="Peers:" Width="50" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <Button x:Name="ButtonAdd" Content="Add" Height="20" HorizontalAlignment="Right" VerticalAlignment="Top" Width="100" Margin="0,25,10,0"/>
-        <Button x:Name="ButtonEdit" Content="Edit" Height="20" HorizontalAlignment="Right" VerticalAlignment="Top" Width="100" Margin="0,55,10,0"/>
-        <Button x:Name="ButtonRemove" Content="Remove" Height="20" HorizontalAlignment="Right" VerticalAlignment="Top" Width="100" Margin="0,85,10,0"/>
-        <Button x:Name="ButtonConnect" Content="Connect" Height="20" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="100" Margin="0,0,10,10"/>
-        <TextBox x:Name="TextUser" Height="20" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="100" Margin="0,0,10,80"/>
-        <PasswordBox x:Name="TextPassword" Height="20" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="100" Margin="0,0,10,40"/>
-        <Label Content="Username" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="100" Margin="0,0,10,100" HorizontalContentAlignment="Center"/>
+        <Button Style="{StaticResource FlatButtonStyle}" FontSize="12" x:Name="ButtonAdd" Content="Add" Height="20" HorizontalAlignment="Right" VerticalAlignment="Top" Width="100" Margin="0,25,10,0"/>
+        <Button Style="{StaticResource FlatButtonStyle}" FontSize="12"  x:Name="ButtonEdit" Content="Edit" Height="20" HorizontalAlignment="Right" VerticalAlignment="Top" Width="100" Margin="0,55,10,0"/>
+        <Button Style="{StaticResource FlatButtonStyle}" FontSize="12"  x:Name="ButtonRemove" Content="Remove" Height="20" HorizontalAlignment="Right" VerticalAlignment="Top" Width="100" Margin="0,85,10,0"/>
+        <Button Style="{StaticResource FlatButtonStyle}" FontSize="12"  x:Name="ButtonConnect" Content="Connect" Height="20" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="100" Margin="0,0,10,10"/>
+        <TextBox x:Name="TextUser" Height="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="100" Margin="0,0,10,90"/>
+        <PasswordBox x:Name="TextPassword" Height="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="100" Margin="0,0,10,40"/>
+        <Label Content="Username" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="100" Margin="0,0,10,110" HorizontalContentAlignment="Center"/>
         <Label Content="Password" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="100" Margin="0,0,10,60" HorizontalContentAlignment="Center"/>
 
     </Grid>

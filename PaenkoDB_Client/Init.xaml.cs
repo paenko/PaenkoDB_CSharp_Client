@@ -88,8 +88,10 @@ namespace PaenkoDB_Client
                 writeStream.Write(json);
             }
 
-            Main MainWindow = new Main();
-            MainWindow.Show();
+            //Main MainWindow = new Main();
+            //MainWindow.Show();
+            Interactive InteractiveWin = new Interactive();
+            InteractiveWin.Show();
         }
     }
 }
