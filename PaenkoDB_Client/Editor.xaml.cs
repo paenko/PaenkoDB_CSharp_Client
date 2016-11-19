@@ -26,21 +26,20 @@ namespace PaenkoDB_Client
             InitializeComponent();
             if (pn != null)
             {
-                TextboxInputDes.Text = pn.Description;
-                TextboxInputLoc.Text = pn.Location;
-                TextboxInputId.Text = pn.ServerID.ToString();
+                TextboxInputIp.Text = pn.NodeLocation.ip;
+                TextboxInputPort.Text = Convert.ToString(pn.NodeLocation.HttpPort);
             }
 
             ButtonConfirm.Click += (o, e) =>
             {
                 if (m == Mode.Add)
                 {
-                    pn = new PaenkoNode(TextboxInputLoc.Text, ulong.Parse(TextboxInputId.Text), TextboxInputDes.Text);
+                    pn = new PaenkoNode(TextboxInputIp.Text, int.Parse(TextboxInputPort.Text));
                     Init.Peers.Add(pn);
                 }
                 else
                 {
-                    Init.Peers[Init.Peers.IndexOf(pn)] = new PaenkoNode(TextboxInputLoc.Text, ulong.Parse(TextboxInputId.Text), TextboxInputDes.Text);
+                    Init.Peers[Init.Peers.IndexOf(pn)] = new PaenkoNode(TextboxInputIp.Text, int.Parse(TextboxInputPort.Text));
                 }
                 Init.ListPeers();
                 this.Close();

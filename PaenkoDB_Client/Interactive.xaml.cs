@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using GoogleMapsApi;
+using PaenkoDB;
 
 namespace PaenkoDB_Client
 {
@@ -25,6 +26,21 @@ namespace PaenkoDB_Client
         {
             InitializeComponent();
             Map = GoogleMapWrapper.Create(this);
+            Map.ApiReady += () => DrawNodes();
+        }
+
+        void DrawNodes()
+        {
+            MarkerOptions mo = new MarkerOptions() { Icon = @"http://i.imgur.com/phDUsCN.png", Clickable = true, DraggingEnabled = false, Flat = false, Optimized = true, RaiseOnDrag = true };
+            foreach (PaenkoNode pn in Init.Peers)
+            {
+                var Marker = Map.AddMarker(new GeographicLocation(pn.NodeLocation.lat, pn.NodeLocation.lon), mo);
+                Marker.Click += (im ,gl) =>
+                {
+                    Main m = new Main();
+                    m.Show();
+                };
+            }
         }
 
         public void RegisterScriptingObject(IGoogleMapRequired wrapper)

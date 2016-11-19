@@ -121,12 +121,10 @@ namespace PaenkoDB_Client
 
         void RefreshPeers()
         {
-            Database.ClearNodes();
             LocationList.Items.Clear();
             foreach (PaenkoNode pn in Init.Peers)
             {
-                LocationList.Items.Add(new ListItem(pn.Location));
-                Database.AddNode(pn);
+                LocationList.Items.Add(new ListItem(pn.NodeLocation.ip));
             }
         }
 
@@ -142,7 +140,7 @@ namespace PaenkoDB_Client
 
         PaenkoNode NodeBySelection()
         {
-            return Init.Peers.Find(pn => pn.Location == (string)((ListItem)LocationList.SelectedItem).Content);
+            return Init.Peers.Find(pn => pn.NodeLocation.ip == (string)((ListItem)LocationList.SelectedItem).Content);
         }
         string KeyBySelection()
         {

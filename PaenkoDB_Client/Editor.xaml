@@ -30,12 +30,10 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <Label x:Name="LabelID" Content="Peer ID: " Margin="10" Height="25" VerticalAlignment="Top"/>
-        <Label x:Name="LabelDescription" Content="Description: " Margin="10,40,0,0" Height="35" VerticalAlignment="Top"/>
-        <Label x:Name="LabelLocation" Content="Location: " Margin="10,70,0,0" Height="35" VerticalAlignment="Top"/>
-        <TextBox x:Name="TextboxInputLoc" Height="30" Width="210" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,62.5,0,0"/>
-        <TextBox x:Name="TextboxInputId" Height="30" Width="300" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,2.5,0,0"/>
-        <TextBox x:Name="TextboxInputDes" Height="30" Width="300" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,32.5,0,0"/>
+        <Label x:Name="LabelIP" Content="Peer Ip: " Margin="10" Height="25" VerticalAlignment="Top"/>
+        <Label x:Name="LabelPort" Content="Peer Port: " Margin="10,40,0,0" Height="35" VerticalAlignment="Top"/>
+        <TextBox x:Name="TextboxInputIp" Height="30" Width="300" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,2.5,0,0"/>
+        <TextBox x:Name="TextboxInputPort" Height="30" Width="300" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,32.5,0,0"/>
         <Button Style="{StaticResource FlatButtonStyle}" FontSize="12" x:Name="ButtonConfirm" Content="Confirm" Height="20" Width="80" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,72.5,10,0"/>
     </Grid>
 </Window>

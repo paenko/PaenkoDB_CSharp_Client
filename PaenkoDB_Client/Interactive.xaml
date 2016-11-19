@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:PaenkoDB_Client"
         mc:Ignorable="d"
         Title="Interactive" Height="300" Width="300" WindowState="Maximized">
+
     <Grid>
-        <WebBrowser x:Name="Browser" />
+        <WebBrowser x:Name="Browser"/>
     </Grid>
 </Window>
