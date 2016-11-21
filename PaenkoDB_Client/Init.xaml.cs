@@ -56,7 +56,7 @@ namespace PaenkoDB_Client
             PeerOutput.Items.Clear();
             foreach (PaenkoNode pn in Peers)
             {
-                PeerOutput.Items.Add(new ListItem(pn.NodeLocation.ip));
+                PeerOutput.Items.Add(new ListItem(pn.NodeLocation.ip, null));
             }
         }
 
@@ -92,6 +92,15 @@ namespace PaenkoDB_Client
             //MainWindow.Show();
             Interactive InteractiveWin = new Interactive();
             InteractiveWin.Show();
+        }
+    }
+    class ListItem : ListBoxItem
+    {
+        public ListItem(string content, Action Dmc) : base()
+        {
+            Content = content;
+            FontSize = 14;
+            this.MouseDoubleClick += (o, e) => Dmc();
         }
     }
 }
