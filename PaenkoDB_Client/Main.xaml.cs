@@ -41,7 +41,33 @@ namespace PaenkoDB_Client
                 $"";
             UpdateExplorer();
             FileExplorer.Drop += (o,e) => ExplorerDrop(e);
+            FileExplorer.MouseMove += (o, e) => ExplorerDrag(e);
+            FileExplorer.PreviewMouseLeftButtonDown += (o,e) => this.start = e.GetPosition(null);
             FileExplorer.MouseDoubleClick += (o, e) => ExplorerClick((Img)((ListBox)o).SelectedItem, e);
+        }
+        private Point start;
+
+        void ExplorerDrag(MouseEventArgs e)
+        {
+            Point mpos = e.GetPosition(null);
+            Vector diff = this.start - mpos;
+
+            if (e.LeftButton == MouseButtonState.Pressed &&
+                Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance &&
+                Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance)
+            {
+                if (this.FileExplorer.SelectedItems.Count == 0)
+                {
+                    return;
+                }
+
+                // right about here you get the file urls of the selected items.
+                // should be quite easy, if not, ask.
+                string[] files = new string[] { $"{AppDomain.CurrentDomain.BaseDirectory}{((Img)(FileExplorer.SelectedItem)).Str}" };
+                string dataFormat = DataFormats.FileDrop;
+                DataObject dataObject = new DataObject(dataFormat, files);
+                DragDrop.DoDragDrop(this.FileExplorer, dataObject, DragDropEffects.Copy);
+            }
         }
 
         void ExplorerClick(Img o, MouseButtonEventArgs e)
@@ -75,7 +101,8 @@ namespace PaenkoDB_Client
             FileExplorer.Items.Clear();
             foreach (string s in GetKeys())
             {
-                Image I = new Image() { Source = new BitmapImage(new Uri(@"C:\Users\Flori\Documents\DocumentIcon.png", UriKind.RelativeOrAbsolute)), Width = 20, Height=20 };
+                string path = (File.Exists(s)) ? @"C:\Users\Flori\Documents\DocumentIconYes.png" : @"C:\Users\Flori\Documents\DocumentIconNo.png";
+                Image I = new Image() { Source = new BitmapImage(new Uri(path, UriKind.RelativeOrAbsolute)), Width = 20, Height=20 };
                 FileExplorer.Items.Add(new Img(s, I));
             }
         }
@@ -92,28 +119,24 @@ namespace PaenkoDB_Client
             }
             Database.PostDocument(OpenNode, doc, m);
         }
+
         void GetFile(string fileid)
         {
             var response = Database.GetDocument(OpenNode, fileid);
-            int fileCount = 0;
             byte[] buffer;
-            while (File.Exists($"Document{fileCount}")) { fileCount++; }
-
             buffer = Convert.FromBase64String(response.Document.payload);
 
-            using (var fileStream = new FileStream($"Document{fileCount}", FileMode.Create))
+            using (var fileStream = new FileStream($"{fileid}", FileMode.Create))
             using (var writeStream = new BinaryWriter(fileStream))
             {
                 writeStream.Write(buffer);
             }
-            OpenFile();
+            OpenFile(fileid);
         }
 
-        void OpenFile()
+        void OpenFile(string fileid)
         {
-            int fileCount = 0;
-            while (File.Exists($"Document{fileCount}")) { fileCount++; }
-            Process.Start($"Document{fileCount - 1}");
+            Process.Start($"{fileid}");
         }
 
         void DeleteDocument(string fileid)
