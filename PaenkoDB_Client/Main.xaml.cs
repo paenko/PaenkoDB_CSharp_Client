@@ -60,9 +60,6 @@ namespace PaenkoDB_Client
                 {
                     return;
                 }
-
-                // right about here you get the file urls of the selected items.
-                // should be quite easy, if not, ask.
                 string[] files = new string[] { $"{AppDomain.CurrentDomain.BaseDirectory}{((Img)(FileExplorer.SelectedItem)).Str}" };
                 string dataFormat = DataFormats.FileDrop;
                 DataObject dataObject = new DataObject(dataFormat, files);
@@ -131,7 +128,7 @@ namespace PaenkoDB_Client
             {
                 writeStream.Write(buffer);
             }
-            OpenFile(fileid);
+            //OpenFile(fileid);
         }
 
         void OpenFile(string fileid)
