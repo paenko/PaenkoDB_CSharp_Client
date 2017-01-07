@@ -28,6 +28,7 @@ namespace PaenkoDB_Client
             InitializeComponent();
             Map = GoogleMapWrapper.Create(this);
             Database = new PaenkoDB.PaenkoDB();
+            Init.Peers.ForEach(pn => { if (pn.NodeLocation.lon == 0 && pn.NodeLocation.lat == 0) pn.NodeLocation.lat = 48; pn.NodeLocation.lon = 16; });
             Map.ApiReady += () => DrawNodes();
         }
 
@@ -35,8 +36,8 @@ namespace PaenkoDB_Client
         {
             List<PaenkoNode> dead = (await Database.CheckNodeStatusAsync(Init.Peers));
             List<PaenkoNode> alive = Init.Peers.Except(dead).AsEnumerable().ToList();
-            MarkerOptions moAlive = new MarkerOptions() { Icon = @"C:\Users\Flori\Documents\ServerUpIcon.png", Clickable = true, DraggingEnabled = false, Flat = false, Optimized = true, RaiseOnDrag = true };
-            MarkerOptions moDead = new MarkerOptions() { Icon = @"C:\Users\Flori\Documents\ServerDownIcon.png", Clickable = true, DraggingEnabled = false, Flat = false, Optimized = true, RaiseOnDrag = true };
+            MarkerOptions moAlive = new MarkerOptions() { Icon = @"http://i.imgur.com/JPV3KXR.png", Clickable = true, DraggingEnabled = false, Flat = false, Optimized = true, RaiseOnDrag = true };
+            MarkerOptions moDead = new MarkerOptions() { Icon = @"http://i.imgur.com/WpTAa9N.png", Clickable = true, DraggingEnabled = false, Flat = false, Optimized = true, RaiseOnDrag = true };
             foreach (PaenkoNode pn in Init.Peers)
             {
                 var Marker = Map.AddMarker(new GeographicLocation(pn.NodeLocation.lat, pn.NodeLocation.lon), (alive.Contains(pn) ? moAlive : moDead));

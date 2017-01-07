@@ -15,6 +15,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Resources;
 
 namespace PaenkoDB_Client
 {
@@ -38,7 +39,8 @@ namespace PaenkoDB_Client
                 $"Region {OpenNode.NodeLocation.region}\r\n" +
                 $"Zipcode {OpenNode.NodeLocation.zip}\r\n" +
                 $"Timezone {OpenNode.NodeLocation.timezone}\r\n" +
-                $"";
+                $"Longitude {OpenNode.NodeLocation.lon}" +
+                $"Latitude {OpenNode.NodeLocation.lat}";
             UpdateExplorer();
             FileExplorer.Drop += (o,e) => ExplorerDrop(e);
             FileExplorer.MouseMove += (o, e) => ExplorerDrag(e);
@@ -98,8 +100,8 @@ namespace PaenkoDB_Client
             FileExplorer.Items.Clear();
             foreach (string s in GetKeys())
             {
-                string path = (File.Exists(s)) ? @"C:\Users\Flori\Documents\DocumentIconYes.png" : @"C:\Users\Flori\Documents\DocumentIconNo.png";
-                Image I = new Image() { Source = new BitmapImage(new Uri(path, UriKind.RelativeOrAbsolute)), Width = 20, Height=20 };
+                Image I = (Image)Properties.Resources.ResourceManager.GetObject((File.Exists(s)) ? "DocumentIconYes.png" : "DocumentIconNo.png");
+                I.Width = 20; I.Height = 20;
                 FileExplorer.Items.Add(new Img(s, I));
             }
         }
