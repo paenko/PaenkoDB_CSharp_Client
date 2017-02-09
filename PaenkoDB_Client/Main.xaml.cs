@@ -101,7 +101,7 @@ namespace PaenkoDB_Client
             FileExplorer.Items.Clear();
             foreach (string s in GetKeys())
             {
-                string path = (File.Exists(s)) ? @"C:\Users\Flori\Documents\DocumentIconYes.png" : @"C:\Users\Flori\Documents\DocumentIconNo.png";
+                string path = (File.Exists(s)) ? @"http://i.imgur.com/k1H1ACX.png" : @"http://i.imgur.com/KIsGDcz.png";
                 Image I = new Image() { Source = new BitmapImage(new Uri(path, UriKind.RelativeOrAbsolute)), Width = 20, Height = 20 };
                 FileExplorer.Items.Add(new Img(s, I));
             }
