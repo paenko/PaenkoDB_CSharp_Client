@@ -47,7 +47,30 @@ namespace PaenkoDB_Client
             FileExplorer.MouseMove += (o, e) => ExplorerDrag(e);
             FileExplorer.PreviewMouseLeftButtonDown += (o,e) => this.start = e.GetPosition(null);
             FileExplorer.MouseDoubleClick += async (o, e) => await ExplorerClick((Img)((ListBox)o).SelectedItem, e);
+            BtnBeginT.Click += (o, e) => StartTransaction(PaenkoDB.PaenkoDB.Command.Begin); 
+            BtnCommT.Click += (o, e) => StartTransaction(PaenkoDB.PaenkoDB.Command.Commit);
+            BtnRollT.Click += (o, e) => StartTransaction(PaenkoDB.PaenkoDB.Command.Rollback);
+            BtnCommT.Visibility = Visibility.Hidden;
+            BtnRollT.Visibility = Visibility.Hidden;
         }
+
+        void StartTransaction(PaenkoDB.PaenkoDB.Command command)
+        {
+            Database.Transaction(OpenNode, command);
+            if (command == PaenkoDB.PaenkoDB.Command.Begin)
+            {
+                BtnBeginT.Visibility = Visibility.Hidden;
+                BtnCommT.Visibility = Visibility.Visible;
+                BtnRollT.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                BtnBeginT.Visibility = Visibility.Visible;
+                BtnCommT.Visibility = Visibility.Hidden;
+                BtnRollT.Visibility = Visibility.Hidden;
+            }
+        }
+
         private Point start;
 
         void ExplorerDrag(MouseEventArgs e)
