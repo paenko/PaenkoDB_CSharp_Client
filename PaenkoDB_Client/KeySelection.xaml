@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PaenkoDB_Client"
         mc:Ignorable="d"
-        Title="KeySelection" Height="300" Width="300">
+        Title="Selection" Height="300" Width="300">
     <Grid>
         <ListBox x:Name="KeySelect"/>
     </Grid>

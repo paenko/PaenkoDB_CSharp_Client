@@ -27,10 +27,11 @@ namespace PaenkoDB_Client
         public static PaenkoDB.PaenkoDB Database = new PaenkoDB.PaenkoDB();
         TextRange MainContent;
         PaenkoNode OpenNode;
-        public Main(PaenkoNode target)
+        public Main(PaenkoNode target, string LogID)
         {
             InitializeComponent();
             OpenNode = target;
+            Database.LogID = LogID;
             MainContent = new TextRange(Output.Document.ContentStart, Output.Document.ContentEnd);
             MainContent.Text = $"" +
                 $"Paenko Node {OpenNode.NodeLocation.ip} on port {OpenNode.NodeLocation.HttpPort} \r\n" +
@@ -42,10 +43,10 @@ namespace PaenkoDB_Client
                 $"Longitude {OpenNode.NodeLocation.lon}" +
                 $"Latitude {OpenNode.NodeLocation.lat}";
             UpdateExplorer();
-            FileExplorer.Drop += (o,e) => ExplorerDrop(e);
+            FileExplorer.Drop += async (o,e) => await ExplorerDrop(e);
             FileExplorer.MouseMove += (o, e) => ExplorerDrag(e);
             FileExplorer.PreviewMouseLeftButtonDown += (o,e) => this.start = e.GetPosition(null);
-            FileExplorer.MouseDoubleClick += (o, e) => ExplorerClick((Img)((ListBox)o).SelectedItem, e);
+            FileExplorer.MouseDoubleClick += async (o, e) => await ExplorerClick((Img)((ListBox)o).SelectedItem, e);
         }
         private Point start;
 
@@ -69,27 +70,27 @@ namespace PaenkoDB_Client
             }
         }
 
-        void ExplorerClick(Img o, MouseButtonEventArgs e)
+        async Task ExplorerClick(Img o, MouseButtonEventArgs e)
         {
             if (e.RightButton == MouseButtonState.Pressed)
             {
-                DeleteDocument(o.Str);
+                await DeleteDocument(o.Str);
             }
             else if (e.LeftButton == MouseButtonState.Pressed)
             {
-                GetFile(o.Str);
+                await GetFile(o.Str);
             }
             UpdateExplorer();
         }
 
-        void ExplorerDrop(DragEventArgs e)
+        async Task ExplorerDrop(DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
                 foreach (string file in files)
                 {
-                    PostPutFile((bool)(tglMode.IsChecked) ? PaenkoDB.PaenkoDB.Method.Put : PaenkoDB.PaenkoDB.Method.Post, file);
+                    await PostPutFile((bool)(tglMode.IsChecked) ? PaenkoDB.PaenkoDB.Method.Put : PaenkoDB.PaenkoDB.Method.Post, file);
                 }
                 UpdateExplorer();
             }
@@ -100,15 +101,15 @@ namespace PaenkoDB_Client
             FileExplorer.Items.Clear();
             foreach (string s in GetKeys())
             {
-                Image I = (Image)Properties.Resources.ResourceManager.GetObject((File.Exists(s)) ? "DocumentIconYes.png" : "DocumentIconNo.png");
-                I.Width = 20; I.Height = 20;
+                string path = (File.Exists(s)) ? @"C:\Users\Flori\Documents\DocumentIconYes.png" : @"C:\Users\Flori\Documents\DocumentIconNo.png";
+                Image I = new Image() { Source = new BitmapImage(new Uri(path, UriKind.RelativeOrAbsolute)), Width = 20, Height = 20 };
                 FileExplorer.Items.Add(new Img(s, I));
             }
         }
 
-        void PostPutFile(PaenkoDB.PaenkoDB.Method m, string filename)
+        async Task PostPutFile(PaenkoDB.PaenkoDB.Method m, string filename)
         {
-            var doc = PaenkoDocument.Open(filename, Init.User, Init.Password);
+            var doc = await PaenkoDocument.OpenAsync(filename, Init.User, Init.Password);
             if (m == PaenkoDB.PaenkoDB.Method.Put)
             {
                 KeySelection ks = new KeySelection(GetKeys()); 
@@ -116,12 +117,12 @@ namespace PaenkoDB_Client
                 if (ks.Selection == "") return;
                 doc.id = ks.Selection;
             }
-            Database.PostDocument(OpenNode, doc, m);
+            await Database.PostDocumentAsync(OpenNode, doc, m);
         }
 
-        void GetFile(string fileid)
+        async Task GetFile(string fileid)
         {
-            var response = Database.GetDocument(OpenNode, fileid);
+            var response = await Database.GetDocumentAsync(OpenNode, fileid);
             byte[] buffer;
             buffer = Convert.FromBase64String(response.Document.payload);
 
@@ -138,9 +139,9 @@ namespace PaenkoDB_Client
             Process.Start($"{fileid}");
         }
 
-        void DeleteDocument(string fileid)
+        async Task DeleteDocument(string fileid)
         {
-            Database.DeleteDocument(OpenNode, fileid);
+            await Database.DeleteDocumentAsync(OpenNode, fileid);
         }
 
         List<string> GetKeys()

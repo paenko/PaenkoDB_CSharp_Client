@@ -34,6 +34,7 @@
         <Label x:Name="LabelPort" Content="Peer Port: " Margin="10,40,0,0" Height="35" VerticalAlignment="Top"/>
         <TextBox x:Name="TextboxInputIp" Height="30" Width="300" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,2.5,0,0"/>
         <TextBox x:Name="TextboxInputPort" Height="30" Width="300" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,32.5,0,0"/>
+        <CheckBox x:Name="CheckLocation" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,120, 17.5" Content="Location"/>
         <Button Style="{StaticResource FlatButtonStyle}" FontSize="12" x:Name="ButtonConfirm" Content="Confirm" Height="20" Width="80" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,72.5,10,0"/>
     </Grid>
 </Window>

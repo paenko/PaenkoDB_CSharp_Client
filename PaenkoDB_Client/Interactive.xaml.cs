@@ -43,7 +43,9 @@ namespace PaenkoDB_Client
                 var Marker = Map.AddMarker(new GeographicLocation(pn.NodeLocation.lat, pn.NodeLocation.lon), (alive.Contains(pn) ? moAlive : moDead));
                 Marker.Click += (im ,gl) =>
                 {
-                    Main m = new Main(pn);
+                    KeySelection ks = new KeySelection(Database.GetLogs(pn));
+                    ks.ShowDialog();
+                    Main m = new Main(pn, ks.Selection);
                     m.Show();
                 };
             }

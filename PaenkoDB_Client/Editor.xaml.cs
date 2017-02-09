@@ -34,7 +34,7 @@ namespace PaenkoDB_Client
             {
                 if (m == Mode.Add)
                 {
-                    pn = new PaenkoNode(TextboxInputIp.Text, int.Parse(TextboxInputPort.Text));
+                    pn = new PaenkoNode(TextboxInputIp.Text, int.Parse(TextboxInputPort.Text), (bool)CheckLocation.IsChecked);
                     Init.Peers.Add(pn);
                 }
                 else
