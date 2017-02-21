@@ -22,19 +22,17 @@ namespace PaenkoDB_Client
     public partial class Interactive : Window, IGoogleMapHost
     {
         IGoogleMapWrapper Map;
-        PaenkoDB.PaenkoDB Database;
         public Interactive()
         {
             InitializeComponent();
             Map = GoogleMapWrapper.Create(this);
-            Database = new PaenkoDB.PaenkoDB();
             Init.Peers.ForEach(pn => { if (pn.NodeLocation.lon == 0 && pn.NodeLocation.lat == 0) pn.NodeLocation.lat = 48; pn.NodeLocation.lon = 16; });
             Map.ApiReady += () => DrawNodes();
         }
 
         async void DrawNodes()
         {
-            List<PaenkoNode> dead = (await Database.CheckNodeStatusAsync(Init.Peers));
+            List<PaenkoNode> dead = (await PaenkoDB.PaenkoDB.CheckNodeStatusAsync(Init.Peers));
             List<PaenkoNode> alive = Init.Peers.Except(dead).AsEnumerable().ToList();
             MarkerOptions moAlive = new MarkerOptions() { Icon = @"http://i.imgur.com/JPV3KXR.png", Clickable = true, DraggingEnabled = false, Flat = false, Optimized = true, RaiseOnDrag = true };
             MarkerOptions moDead = new MarkerOptions() { Icon = @"http://i.imgur.com/WpTAa9N.png", Clickable = true, DraggingEnabled = false, Flat = false, Optimized = true, RaiseOnDrag = true };
@@ -43,7 +41,7 @@ namespace PaenkoDB_Client
                 var Marker = Map.AddMarker(new GeographicLocation(pn.NodeLocation.lat, pn.NodeLocation.lon), (alive.Contains(pn) ? moAlive : moDead));
                 Marker.Click += (im ,gl) =>
                 {
-                    KeySelection ks = new KeySelection(Database.GetLogs(pn));
+                    KeySelection ks = new KeySelection(PaenkoDB.PaenkoDB.GetLogs(pn));
                     ks.ShowDialog();
                     Main m = new Main(pn, ks.Selection);
                     m.Show();
