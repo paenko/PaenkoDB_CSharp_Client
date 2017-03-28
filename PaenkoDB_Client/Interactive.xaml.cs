@@ -32,16 +32,16 @@ namespace PaenkoDB_Client
 
         async void DrawNodes()
         {
-            List<PaenkoNode> dead = (await PaenkoDB.PaenkoDB.CheckNodeStatusAsync(Init.Peers));
-            List<PaenkoNode> alive = Init.Peers.Except(dead).AsEnumerable().ToList();
+            List<Node> alive = await HealthCheck.CheckHealth(Init.Peers);
+            List<Node> dead = Init.Peers.Except(alive).ToList();
             MarkerOptions moAlive = new MarkerOptions() { Icon = @"http://i.imgur.com/JPV3KXR.png", Clickable = true, DraggingEnabled = false, Flat = false, Optimized = true, RaiseOnDrag = true };
             MarkerOptions moDead = new MarkerOptions() { Icon = @"http://i.imgur.com/WpTAa9N.png", Clickable = true, DraggingEnabled = false, Flat = false, Optimized = true, RaiseOnDrag = true };
-            foreach (PaenkoNode pn in Init.Peers)
+            foreach (Node pn in Init.Peers)
             {
                 var Marker = Map.AddMarker(new GeographicLocation(pn.NodeLocation.lat, pn.NodeLocation.lon), (alive.Contains(pn) ? moAlive : moDead));
                 Marker.Click += (im ,gl) =>
                 {
-                    KeySelection ks = new KeySelection(PaenkoDB.PaenkoDB.GetLogs(pn));
+                    KeySelection ks = new KeySelection(pn.GetLogs());
                     ks.ShowDialog();
                     Main m = new Main(pn, ks.Selection);
                     m.Show();

@@ -23,7 +23,7 @@ namespace PaenkoDB_Client
     /// </summary>
     public partial class Init : Window
     {
-        public static List<PaenkoNode> Peers = new List<PaenkoNode>();
+        public static List<Node> Peers = new List<Node>();
         public static string User = "default", Password = "default";
         public static ListBox PeerOutput;
         public Init()
@@ -38,15 +38,16 @@ namespace PaenkoDB_Client
             ButtonConnect.Click += (o, e) => Connect();
 
             // Load Peers from file
+            /*
             if (File.Exists("Peerlist.json"))
             {
                 using (var stream = new FileStream("Peerlist.json", FileMode.Open))
                 using (var readStream = new StreamReader(stream))
                 {
                     string file = readStream.ReadToEnd();
-                    Peers = JsonConvert.DeserializeObject<List<PaenkoNode>>(file);
+                    Peers = JsonConvert.DeserializeObject<List<Node>>(file);
                 }
-            }
+            }*/
 
             ListPeers();
         }
@@ -54,7 +55,7 @@ namespace PaenkoDB_Client
         public static void ListPeers()
         {
             PeerOutput.Items.Clear();
-            foreach (PaenkoNode pn in Peers)
+            foreach (Node pn in Peers)
             {
                 PeerOutput.Items.Add(new ListItem(pn.NodeLocation.ip, null));
             }
@@ -81,15 +82,18 @@ namespace PaenkoDB_Client
         void Connect()
         {
             // Save Peers to file
+            /*
             string json = JsonConvert.SerializeObject(Peers);
             using (var stream = new FileStream("Peerlist.json", FileMode.Create))
             using (var writeStream = new StreamWriter(stream))
             {
                 writeStream.Write(json);
-            }
+            }*/
 
             //Main MainWindow = new Main();
             //MainWindow.Show();
+            User = TextUser.Text;
+            Password = TextPassword.Password;
             Interactive InteractiveWin = new Interactive();
             InteractiveWin.Show();
         }

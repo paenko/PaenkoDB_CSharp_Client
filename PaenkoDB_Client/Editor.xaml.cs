@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using PaenkoDB;
+using System.Net;
 
 namespace PaenkoDB_Client
 {
@@ -21,7 +22,7 @@ namespace PaenkoDB_Client
     public partial class Editor : Window
     {
         public enum Mode { Add, Edit };
-        public Editor(Mode m = Mode.Add, PaenkoNode pn = null)
+        public Editor(Mode m = Mode.Add, Node pn = null)
         {
             InitializeComponent();
             if (pn != null)
@@ -34,12 +35,12 @@ namespace PaenkoDB_Client
             {
                 if (m == Mode.Add)
                 {
-                    pn = new PaenkoNode(TextboxInputIp.Text, int.Parse(TextboxInputPort.Text), (bool)CheckLocation.IsChecked);
+                    pn = new Node(IPAddress.Parse(TextboxInputIp.Text), int.Parse(TextboxInputPort.Text), (bool)CheckLocation.IsChecked);
                     Init.Peers.Add(pn);
                 }
                 else
                 {
-                    Init.Peers[Init.Peers.IndexOf(pn)] = new PaenkoNode(TextboxInputIp.Text, int.Parse(TextboxInputPort.Text));
+                    Init.Peers[Init.Peers.IndexOf(pn)] = new Node(IPAddress.Parse(TextboxInputIp.Text), int.Parse(TextboxInputPort.Text));
                 }
                 Init.ListPeers();
                 this.Close();
